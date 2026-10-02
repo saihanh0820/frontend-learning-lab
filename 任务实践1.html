@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆周长计算</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f2f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 2rem 2.5rem;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            color: #0b2b3b;
+            margin-top: 0;
+            font-weight: 500;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        input {
+            padding: 10px 16px;
+            border: 2px solid #dbe4ea;
+            border-radius: 60px;
+            font-size: 1rem;
+            width: 130px;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus {
+            border-color: #2a7f9c;
+        }
+        button {
+            background: #1d5a72;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #124a5f;
+        }
+        .result {
+            background: #f0f6fa;
+            padding: 0.8rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #08303f;
+            margin: 1rem 0 0.5rem;
+        }
+        .formula {
+            color: #2c6a7e;
+            font-size: 0.9rem;
+            background: #e7f0f5;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>⭕ 圆周长</h2>
+        <p style="color: #306b7e; margin-bottom: 0.2rem;">C = 2 · π · r</p>
+
+        <div class="input-area">
+            <input type="number" id="radiusInput" value="5" step="0.1" min="0">
+            <button id="calcBtn">计算</button>
+        </div>
+
+        <div class="result" id="displayResult">31.42</div>
+        <div class="formula" id="formulaDisplay">2 × π × 5 = 31.42</div>
+    </div>
+
+    <script>
+        const input = document.getElementById('radiusInput');
+        const btn = document.getElementById('calcBtn');
+        const result = document.getElementById('displayResult');
+        const formula = document.getElementById('formulaDisplay');
+
+        function calculate() {
+            let r = parseFloat(input.value);
+            if (isNaN(r) || r < 0) r = 0;
+            const c = 2 * Math.PI * r;
+            result.textContent = c.toFixed(2);
+            formula.textContent = `2 × π × ${r.toFixed(2)} = ${c.toFixed(2)}`;
+        }
+
+        btn.addEventListener('click', calculate);
+        input.addEventListener('input', calculate);
+        input.addEventListener('blur', () => {
+            if (input.value.trim() === '' || parseFloat(input.value) < 0) {
+                input.value = '0';
+                calculate();
+            }
+        });
+        // 初始化
+        calculate();
+    </script>
+</body>
+</html>
